@@ -1,0 +1,37 @@
+<p class="eyebrow">TÌM GIAI ĐIỆU CỦA BẠN</p>
+<h1 class="page-title">Khám phá</h1>
+<label class="sr-only" for="music-search">Tìm bài hát, playlist, nghệ sĩ</label>
+<div class="search-field">
+  <svg class="icon" aria-hidden="true"><use href="#icon-search" /></svg>
+  <input id="music-search" type="search" placeholder="Bài hát, playlist, nghệ sĩ…" autocomplete="off"
+    [value]="query()" (input)="query.set($any($event.target).value)" />
+</div>
+<p class="form-note" role="status">{{ count() }} kết quả{{ query().trim() ? ' cho “' + query().trim() + '”' : '' }}</p>
+@if (!count()) {
+  <div class="empty-state"><h2>Chưa tìm thấy giai điệu này</h2><p class="page-description">Thử tên bài hát hoặc nghệ sĩ khác nhé.</p></div>
+}
+@if (tracks().length) {
+  <h2 class="list-title">Bài hát</h2><app-track-list [tracks]="tracks()" />
+}
+@if (playlists().length) {
+  <h2 class="list-title">Playlist</h2>
+  <div class="browse-grid">
+    @for (item of playlists(); track item.id) {
+      <a class="browse-card" [routerLink]="['/playlist', item.id]">
+        <img [src]="item.image" [alt]="item.imageAlt" width="170" height="170" loading="lazy" />
+        <strong>{{ item.title }}</strong><small>{{ item.description }}</small>
+      </a>
+    }
+  </div>
+}
+@if (artists().length) {
+  <h2 class="list-title">Nghệ sĩ</h2>
+  <div class="browse-grid">
+    @for (item of artists(); track item.id) {
+      <a class="browse-card artist-card" [routerLink]="['/artist', item.id]">
+        <img [src]="item.image" [alt]="item.name" width="170" height="170" loading="lazy" />
+        <strong>{{ item.name }}</strong><small>{{ item.genre }}</small>
+      </a>
+    }
+  </div>
+}

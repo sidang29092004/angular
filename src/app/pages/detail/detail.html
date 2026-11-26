@@ -1,0 +1,43 @@
+<a class="back-link" routerLink="/">← Trang chủ</a>
+@if (entity(); as item) {
+  <article class="detail-page">
+    <img class="detail-cover" [class.artist-cover]="kind() === 'artist'" [src]="item.image"
+      [alt]="item.title" width="360" height="360" fetchpriority="high" />
+    <p class="eyebrow">{{ item.label }}</p>
+    <h1 class="page-title">{{ item.title }}</h1>
+    <p class="page-description">{{ item.description }}</p>
+    @if (kind() === 'track') {
+      @if (track(); as song) {
+        <div class="detail-meta">
+          <span>{{ song.artist }}</span><span>·</span><span>{{ song.duration }}</span>
+        </div>
+        <button class="primary-button" type="button" (click)="library.toggle(song.id)"
+          [attr.aria-pressed]="library.favorites().includes(song.id)">
+          <svg class="icon" aria-hidden="true"><use href="#icon-heart" /></svg>
+          {{ library.favorites().includes(song.id) ? 'Đã lưu vào thư viện' : 'Lưu vào thư viện' }}
+        </button>
+        <p class="form-note" role="status">{{ library.message() }}</p>
+        <div class="related-links">
+          @if (trackArtist(); as artist) {
+            <a [routerLink]="['/artist', artist.id]">Khám phá {{ artist.name }} <span>↗</span></a>
+          }
+          @if (trackPlaylist(); as playlist) {
+            <a [routerLink]="['/playlist', playlist.id]">{{ playlist.title }} <span>↗</span></a>
+          }
+        </div>
+      }
+    } @else {
+      <p class="detail-meta">{{ relatedTracks().length }} bài hát · Tuyển chọn bởi spotife</p>
+    }
+    <h2 class="list-title">{{ kind() === 'track' ? 'Tiếp tục khám phá' : 'Danh sách bài hát' }}</h2>
+    <app-track-list [tracks]="relatedTracks()" />
+  </article>
+} @else if (music.status() === 'loading') {
+  <p class="page-description" role="status">Đang tải thông tin…</p>
+} @else {
+  <div class="empty-state">
+    <h1 class="page-title">Chưa tìm thấy nội dung</h1>
+    <p class="page-description">Liên kết này có thể đã thay đổi. Bạn có thể tìm một giai điệu khác.</p>
+    <a class="primary-button" routerLink="/search">Khám phá âm nhạc</a>
+  </div>
+}

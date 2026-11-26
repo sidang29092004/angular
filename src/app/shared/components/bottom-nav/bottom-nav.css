@@ -1,0 +1,238 @@
+:host {
+  display: block;
+}
+
+.bottom-dock {
+  position: fixed;
+  z-index: 30;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 450px;
+  padding-top: 10px;
+  transform: translateX(-50%);
+  background: var(--dock-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.bottom-dock > * {
+  pointer-events: auto;
+}
+
+.mini-player {
+  overflow: hidden;
+  margin: 0 12px 6px;
+  border: 1px solid var(--mini-player-border);
+  border-radius: 14px;
+  background: var(--mini-player-bg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mini-player:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+.player-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 6px 10px;
+}
+
+.player-cover-wrap {
+  position: relative;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+}
+
+.player-cover-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.player-cover-wrap img.is-spinning {
+  border-radius: 50%;
+  animation: spin-slow 8s linear infinite;
+}
+
+.player-wave-indicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+
+.player-wave-indicator i {
+  width: 2px;
+  height: 12px;
+  border-radius: 2px;
+  background: #ffffff;
+}
+
+.player-wave-indicator i:nth-child(1) { animation: bounce-bar-1 0.8s infinite; }
+.player-wave-indicator i:nth-child(2) { animation: bounce-bar-2 0.6s infinite; }
+.player-wave-indicator i:nth-child(3) { animation: bounce-bar-3 0.9s infinite; }
+
+.player-song {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-song strong,
+.player-song > span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-song strong {
+  margin-bottom: 3px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.player-song:hover strong {
+  color: var(--green);
+}
+
+.player-song > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.song-dot {
+  margin-inline: 4px;
+}
+
+.player-control-button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--green-text);
+  box-shadow: 0 3px 12px var(--green-glow);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+}
+
+.player-control-button:hover {
+  background: var(--green-hover);
+  transform: scale(1.1);
+}
+
+.player-control-button:active {
+  transform: scale(0.92);
+}
+
+.player-control-button .icon {
+  width: 17px;
+  height: 17px;
+}
+
+.mini-player .icon-button {
+  width: 36px;
+  height: 36px;
+  color: var(--muted);
+}
+
+.mini-player .icon-button:hover {
+  color: var(--green);
+}
+
+.player-progress {
+  height: 3px;
+  background: var(--border-subtle);
+  overflow: hidden;
+}
+
+.player-progress > span {
+  display: block;
+  width: 35%;
+  height: 100%;
+  background: var(--green);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.player-progress > span.is-animating {
+  animation: progress-slide 20s linear infinite;
+}
+
+@keyframes progress-slide {
+  0% { width: 10%; }
+  50% { width: 65%; }
+  100% { width: 95%; }
+}
+
+.bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 10px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-item .icon {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-item:hover {
+  color: var(--text);
+}
+
+.nav-item:hover .icon {
+  transform: translateY(-2px);
+}
+
+.nav-item.active {
+  color: var(--green);
+}
+
+.nav-item.active .icon {
+  transform: translateY(-2px) scale(1.08);
+}
+
+.active-dot {
+  display: none;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+}
+
+.nav-item.active .active-dot {
+  display: block;
+  animation: pulse-dot 2s ease-in-out infinite;
+}

@@ -1,0 +1,185 @@
+<div class="admin-frame">
+  <aside class="sidebar" aria-label="Điều hướng quản trị">
+    <a class="brand" routerLink="/" aria-label="spotife, về trang nghe nhạc">
+      <span class="brand-mark">♫</span>
+      <span>spotife<span class="brand-dot">.</span></span>
+      <span class="brand-caption">STUDIO</span>
+    </a>
+
+    <p class="nav-label">KHÔNG GIAN QUẢN LÝ</p>
+    <nav class="side-nav">
+      <a routerLink="/admin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" (click)="setPage('overview')">
+        <span class="nav-icon">⌂</span><span>Tổng quan</span>
+      </a>
+      <a routerLink="/admin/tracks" routerLinkActive="active" (click)="setPage('tracks')">
+        <span class="nav-icon">♫</span><span>Bài hát</span><span class="nav-count">{{ catalog().tracks.length }}</span>
+      </a>
+      <a routerLink="/admin/artists" routerLinkActive="active" (click)="setPage('artists')">
+        <span class="nav-icon">♙</span><span>Nghệ sĩ</span><span class="nav-count">{{ catalog().artists.length }}</span>
+      </a>
+      <a routerLink="/admin/playlists" routerLinkActive="active" (click)="setPage('playlists')">
+        <span class="nav-icon">▤</span><span>Playlist</span><span class="nav-count">{{ catalog().playlists.length }}</span>
+      </a>
+      <a routerLink="/admin/feedback" routerLinkActive="active" (click)="setPage('feedback')">
+        <span class="nav-icon">✳</span><span>Đánh giá</span><span class="nav-count">{{ catalog().feedbacks.length }}</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="admin-profile">
+        <span class="profile-avatar">A</span>
+        <span class="profile-copy"><strong>Quản trị viên</strong><small>Admin workspace</small></span>
+        <span class="online-dot" aria-label="Đang hoạt động"></span>
+      </div>
+      <a class="back-link" routerLink="/"><span aria-hidden="true">↗</span> Về trang nghe nhạc</a>
+    </div>
+  </aside>
+
+  <div class="admin-workspace">
+    <header class="topbar">
+      <div class="breadcrumbs"><span>spotife</span><span class="crumb-separator">/</span><strong>{{ pageTitle() }}</strong></div>
+      <div class="topbar-actions">
+        <button
+          type="button"
+          class="admin-theme-toggle"
+          (click)="themeService.toggleTheme()"
+          [attr.aria-label]="themeService.isDark() ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'"
+          [title]="themeService.isDark() ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'"
+        >
+          <span class="theme-icon-wrap" [class.is-sun]="!themeService.isDark()">
+            @if (themeService.isDark()) {
+              <svg class="icon theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            } @else {
+              <svg class="icon theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14-1.41 1.41" />
+              </svg>
+            }
+          </span>
+          <span class="theme-text">{{ themeService.isDark() ? 'Giao diện tối' : 'Giao diện sáng' }}</span>
+        </button>
+        <span class="environment"><span></span> LOCAL WORKSPACE</span>
+        <a class="view-site" routerLink="/">Xem trang nghe nhạc <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      @if (page() === 'overview') {
+        <section class="page-heading overview-heading">
+          <div><p class="eyebrow">BẢNG ĐIỀU KHIỂN</p><h1>Chào bạn, Admin <span>✦</span></h1><p class="page-subtitle">Đây là những gì đang diễn ra trong thư viện âm nhạc của bạn.</p></div>
+          <a class="quiet-button" routerLink="/">Mở trang chủ <span aria-hidden="true">↗</span></a>
+        </section>
+
+        <section class="stats-grid" aria-label="Tổng quan nội dung">
+          <article class="stat-card"><span class="stat-icon green">♫</span><span class="stat-label">Tổng bài hát</span><strong>{{ catalog().tracks.length }}</strong><small>Trong thư viện</small></article>
+          <article class="stat-card"><span class="stat-icon lavender">♙</span><span class="stat-label">Nghệ sĩ</span><strong>{{ catalog().artists.length }}</strong><small>Hồ sơ nghệ sĩ</small></article>
+          <article class="stat-card"><span class="stat-icon orange">▤</span><span class="stat-label">Playlist</span><strong>{{ catalog().playlists.length }}</strong><small>Bộ sưu tập âm nhạc</small></article>
+          <article class="stat-card"><span class="stat-icon blue">✳</span><span class="stat-label">Đánh giá</span><strong>{{ catalog().feedbacks.length }}</strong><small>Trung bình {{ averageRating() }} / 5 sao</small></article>
+        </section>
+
+        <div class="overview-grid">
+          <section class="content-panel recent-panel">
+            <div class="panel-heading"><div><p class="eyebrow">THƯ VIỆN</p><h2>Bài hát gần đây</h2></div><a routerLink="/admin/tracks">Xem tất cả <span aria-hidden="true">→</span></a></div>
+            @if (catalog().tracks.length) {
+              <div class="recent-list">
+                @for (track of catalog().tracks.slice(0, 5); track track.id; let index = $index) {
+                  <div class="recent-row"><span class="row-index">{{ (index + 1).toString().padStart(2, '0') }}</span><img [src]="track.image" [alt]="''"><span class="recent-copy"><strong>{{ track.title }}</strong><small>{{ track.artist }}</small></span><span class="recent-playlist">{{ playlistName(track.playlistId) }}</span><span class="row-duration">{{ track.duration }}</span></div>
+                }
+              </div>
+            } @else {
+              <div class="empty-state"><strong>Chưa có bài hát nào</strong><p>Thêm bài hát đầu tiên để bắt đầu xây dựng thư viện.</p><button class="primary-button" type="button" (click)="openCreate('tracks')">Thêm bài hát</button></div>
+            }
+          </section>
+
+          <section class="content-panel quick-panel">
+            <div class="panel-heading"><div><p class="eyebrow">THAO TÁC NHANH</p><h2>Quản lý nội dung</h2></div></div>
+            <div class="quick-links">
+              <a routerLink="/admin/tracks"><span class="quick-icon green">♫</span><span><strong>Danh sách bài hát</strong><small>Chỉnh sửa và sắp xếp thư viện</small></span><b aria-hidden="true">→</b></a>
+              <a routerLink="/admin/artists"><span class="quick-icon lavender">♙</span><span><strong>Hồ sơ nghệ sĩ</strong><small>Cập nhật thông tin nghệ sĩ</small></span><b aria-hidden="true">→</b></a>
+              <a routerLink="/admin/playlists"><span class="quick-icon orange">▤</span><span><strong>Bộ sưu tập playlist</strong><small>Tổ chức các danh sách phát</small></span><b aria-hidden="true">→</b></a>
+              <a routerLink="/admin/feedback"><span class="quick-icon blue">✳</span><span><strong>Phản hồi người nghe</strong><small>Xem đánh giá từ cộng đồng</small></span><b aria-hidden="true">→</b></a>
+            </div>
+          </section>
+        </div>
+        <p class="storage-note"><span aria-hidden="true">ⓘ</span> Thay đổi được lưu trong trình duyệt này.</p>
+      } @else {
+        <section class="page-heading">
+          <div><p class="eyebrow">THƯ VIỆN SPOTIFE</p><h1>Quản lý {{ pageTitle().toLocaleLowerCase() }}</h1><p class="page-subtitle">Theo dõi, tìm kiếm và cập nhật nội dung trong thư viện của bạn.</p></div>
+          @if (page() !== 'feedback') {
+            <button class="primary-button" type="button" (click)="openCreate(page() === 'tracks' ? 'tracks' : page() === 'artists' ? 'artists' : 'playlists')"><span class="plus">+</span> Thêm {{ page() === 'tracks' ? 'bài hát' : page() === 'artists' ? 'nghệ sĩ' : 'playlist' }}</button>
+          }
+        </section>
+
+        <section class="content-panel table-panel">
+          <div class="table-toolbar">
+            <div class="result-count"><strong>{{ page() === 'tracks' ? tracks().length : page() === 'artists' ? artists().length : page() === 'playlists' ? playlists().length : feedbacks().length }}</strong> mục</div>
+            <label class="table-search"><span aria-hidden="true">⌕</span><input type="search" placeholder="Tìm trong danh sách..." [ngModel]="query()" (ngModelChange)="query.set($event)" aria-label="Tìm trong danh sách"></label>
+          </div>
+
+          @if (page() === 'tracks') {
+            <div class="table-scroll"><table><thead><tr><th>BÀI HÁT</th><th>NGHỆ SĨ</th><th>PLAYLIST</th><th>THỜI LƯỢNG</th><th class="actions-heading">THAO TÁC</th></tr></thead><tbody>
+              @for (track of tracks(); track track.id) {
+                <tr><td><div class="item-cell"><img [src]="track.image" [alt]="''"><span><strong>{{ track.title }}</strong><small>{{ track.id }}</small></span></div></td><td>{{ track.artist }}</td><td><span class="soft-tag">{{ playlistName(track.playlistId) }}</span></td><td class="muted-cell">{{ track.duration }}</td><td><div class="row-actions"><button type="button" class="action-button" (click)="openEdit('tracks', track)" [attr.aria-label]="'Sửa ' + track.title">Sửa</button><button type="button" class="action-button delete" (click)="removeItem('tracks', track.id)" [attr.aria-label]="'Xóa ' + track.title">Xóa</button></div></td></tr>
+              } @empty { <tr><td colspan="5"><div class="table-empty">Không tìm thấy bài hát phù hợp.</div></td></tr> }
+            </tbody></table></div>
+          }
+
+          @if (page() === 'artists') {
+            <div class="table-scroll"><table><thead><tr><th>NGHỆ SĨ</th><th>THỂ LOẠI</th><th>GIỚI THIỆU</th><th class="actions-heading">THAO TÁC</th></tr></thead><tbody>
+              @for (artist of artists(); track artist.id) {
+                <tr><td><div class="item-cell artist-cell"><img [src]="artist.image" [alt]="''"><span><strong>{{ artist.name }}</strong><small>{{ artist.id }}</small></span></div></td><td><span class="soft-tag purple-tag">{{ artist.genre }}</span></td><td class="description-cell">{{ artist.bio || 'Chưa có giới thiệu' }}</td><td><div class="row-actions"><button type="button" class="action-button" (click)="openEdit('artists', artist)" [attr.aria-label]="'Sửa ' + artist.name">Sửa</button><button type="button" class="action-button delete" (click)="removeItem('artists', artist.id)" [attr.aria-label]="'Xóa ' + artist.name">Xóa</button></div></td></tr>
+              } @empty { <tr><td colspan="4"><div class="table-empty">Không tìm thấy nghệ sĩ phù hợp.</div></td></tr> }
+            </tbody></table></div>
+          }
+
+          @if (page() === 'playlists') {
+            <div class="table-scroll"><table><thead><tr><th>PLAYLIST</th><th>MÔ TẢ</th><th>BÀI HÁT</th><th class="actions-heading">THAO TÁC</th></tr></thead><tbody>
+              @for (playlist of playlists(); track playlist.id) {
+                <tr><td><div class="item-cell"><img [src]="playlist.image" [alt]="''"><span><strong>{{ playlist.title }}</strong><small>{{ playlist.id }}</small></span></div></td><td class="description-cell">{{ playlist.description || 'Chưa có mô tả' }}</td><td><span class="soft-tag">{{ playlistTrackCount(playlist.id) }} bài</span></td><td><div class="row-actions"><button type="button" class="action-button" (click)="openEdit('playlists', playlist)" [attr.aria-label]="'Sửa ' + playlist.title">Sửa</button><button type="button" class="action-button delete" (click)="removeItem('playlists', playlist.id)" [attr.aria-label]="'Xóa ' + playlist.title">Xóa</button></div></td></tr>
+              } @empty { <tr><td colspan="4"><div class="table-empty">Không tìm thấy playlist phù hợp.</div></td></tr> }
+            </tbody></table></div>
+          }
+
+          @if (page() === 'feedback') {
+            <div class="table-scroll"><table><thead><tr><th>NGƯỜI NGHE</th><th>ĐÁNH GIÁ</th><th>CẢM NHẬN</th><th>NGÀY GỬI</th><th class="actions-heading">THAO TÁC</th></tr></thead><tbody>
+              @for (item of feedbacks(); track item.id) {
+                <tr><td><div class="feedback-person"><span class="feedback-avatar">{{ item.initials }}</span><span><strong>{{ item.name }}</strong><small>{{ item.caption }}</small></span></div></td><td><span class="stars">{{ '★'.repeat(item.rating) }}<span>{{ '★'.repeat(5 - item.rating) }}</span></span></td><td class="quote-cell">“{{ item.quote }}”</td><td class="muted-cell">{{ formattedDate(item.createdAt) }}</td><td><div class="row-actions"><button type="button" class="action-button delete" (click)="removeItem('feedback', item.id)" [attr.aria-label]="'Xóa đánh giá của ' + item.name">Xóa</button></div></td></tr>
+              } @empty { <tr><td colspan="5"><div class="table-empty">Chưa có đánh giá phù hợp.</div></td></tr> }
+            </tbody></table></div>
+          }
+        </section>
+        <p class="storage-note"><span aria-hidden="true">ⓘ</span> Thay đổi được lưu trong trình duyệt này.</p>
+      }
+    </main>
+  </div>
+</div>
+
+@if (editorOpen()) {
+  <div class="modal-backdrop" (click)="closeEditor()">
+    <section class="editor-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="'editor-title'" (click)="$event.stopPropagation()">
+      <div class="modal-heading"><div><p class="eyebrow">{{ editingId() ? 'CẬP NHẬT THÔNG TIN' : 'THÊM VÀO THƯ VIỆN' }}</p><h2 id="editor-title">{{ editingId() ? 'Chỉnh sửa' : 'Thêm' }} {{ editorKind() === 'tracks' ? 'bài hát' : editorKind() === 'artists' ? 'nghệ sĩ' : 'playlist' }}</h2></div><button type="button" class="close-button" (click)="closeEditor()" aria-label="Đóng">×</button></div>
+      <form (ngSubmit)="saveItem()">
+        <label>{{ editorKind() === 'tracks' ? 'Tên bài hát' : editorKind() === 'artists' ? 'Tên nghệ sĩ' : 'Tên playlist' }} <span>*</span><input name="title" [(ngModel)]="form.title" required maxlength="100" placeholder="Nhập tên nội dung"></label>
+        @if (editorKind() === 'tracks') {
+          <div class="form-grid"><label>Nghệ sĩ <span>*</span><input name="artist" [(ngModel)]="form.artist" required maxlength="80" placeholder="Tên nghệ sĩ"></label><label>Thời lượng<input name="duration" [(ngModel)]="form.duration" maxlength="10" placeholder="3:30"></label></div>
+          <label>Playlist<select name="playlistId" [(ngModel)]="form.playlistId"><option value="">Chưa phân loại</option>@for (playlist of catalog().playlists; track playlist.id) { <option [value]="playlist.id">{{ playlist.title }}</option> }</select></label>
+          <label>Mô tả<input name="description" [(ngModel)]="form.description" maxlength="180" placeholder="Một vài dòng giới thiệu"></label>
+        }
+        @if (editorKind() === 'artists') {
+          <label>Thể loại <span>*</span><input name="genre" [(ngModel)]="form.genre" required maxlength="60" placeholder="Ví dụ: Indie pop"></label>
+          <label>Tiểu sử<textarea name="bio" [(ngModel)]="form.bio" rows="3" maxlength="300" placeholder="Giới thiệu ngắn về nghệ sĩ"></textarea></label>
+        }
+        @if (editorKind() === 'playlists') {
+          <label>Mô tả<textarea name="description" [(ngModel)]="form.description" rows="3" maxlength="240" placeholder="Playlist này mang màu sắc gì?"></textarea></label>
+        }
+        <label>Đường dẫn ảnh<input name="image" [(ngModel)]="form.image" maxlength="500" placeholder="assets/images/ocean.jpg"></label>
+        <p class="modal-note">Có thể dùng ảnh trong thư mục assets hoặc một đường dẫn ảnh công khai.</p>
+        <div class="modal-actions"><button type="button" class="cancel-button" (click)="closeEditor()">Hủy</button><button class="primary-button" type="submit">{{ editingId() ? 'Lưu thay đổi' : 'Thêm vào thư viện' }}</button></div>
+      </form>
+    </section>
+  </div>
+}
+
+@if (notice()) { <div class="toast" role="status">{{ notice() }}</div> }

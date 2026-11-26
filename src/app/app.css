@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+:host(:not(.is-admin)) {
+  background: var(--bg-page);
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  min-height: 100dvh;
+  margin-inline: auto;
+  padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+  background: var(--surface);
+  box-shadow: var(--shadow-shell);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+@media (min-width: 520px) {
+  :host(:not(.is-admin)) {
+    padding-block: 24px;
+    background: radial-gradient(circle at 50% 15%, var(--green-soft), transparent 60%), var(--bg-page);
+  }
+
+  .app-shell {
+    min-height: calc(100vh - 48px);
+    border-radius: 32px;
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+  }
+}
+
+main {
+  padding: 8px 20px 32px;
+}

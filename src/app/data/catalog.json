@@ -1,0 +1,150 @@
+{
+  "playlists": [
+    {
+      "id": "chill",
+      "title": "Chill một chút",
+      "description": "Thả lỏng và để tâm trí đi xa.",
+      "image": "assets/images/ocean.jpg",
+      "imageAlt": "Sóng biển xanh dịu dàng",
+      "coverClass": "cover-chill",
+      "coverTitle": "chill.",
+      "coverSubtitle": "một chút thôi"
+    },
+    {
+      "id": "indie",
+      "title": "Indie trong tai",
+      "description": "Những thanh âm rất riêng.",
+      "image": "assets/images/headphones.jpg",
+      "imageAlt": "Khoảnh khắc đắm mình trong âm nhạc với tai nghe",
+      "coverClass": "cover-indie",
+      "coverTitle": "indie",
+      "coverSubtitle": "trong tai"
+    },
+    {
+      "id": "repeat",
+      "title": "On repeat",
+      "description": "Nghe mãi, vẫn thấy hay.",
+      "image": "assets/images/night-city.jpg",
+      "imageAlt": "Ánh đèn neon tím giữa thành phố về đêm",
+      "coverClass": "cover-night",
+      "coverTitle": "on",
+      "coverSubtitle": "repeat.",
+      "largeSubtitle": true
+    },
+    {
+      "id": "sunshine",
+      "title": "Nắng trong lòng",
+      "description": "Một ngày mới, một năng lượng.",
+      "image": "assets/images/sunset.jpg",
+      "imageAlt": "Bầu trời cam ấm áp bên bờ biển",
+      "coverClass": "cover-sunshine",
+      "coverTitle": "nắng",
+      "coverSubtitle": "trong lòng"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "binh-yen",
+      "title": "Chỉ cần bình yên",
+      "artist": "Minh An",
+      "image": "assets/images/ocean.jpg",
+      "duration": "3:42",
+      "playlist": "Chill một chút",
+      "playlistId": "chill",
+      "artistId": "minh-an",
+      "description": "Thả lỏng và để tâm trí đi xa."
+    },
+    {
+      "id": "ngay-mua",
+      "title": "Đi qua những ngày mưa",
+      "artist": "The June",
+      "image": "assets/images/headphones.jpg",
+      "duration": "4:05",
+      "playlist": "Indie trong tai",
+      "playlistId": "indie",
+      "artistId": "june",
+      "description": "Những thanh âm rất riêng."
+    },
+    {
+      "id": "thanh-pho",
+      "title": "Thành phố về đêm",
+      "artist": "Luna",
+      "image": "assets/images/night-city.jpg",
+      "duration": "3:18",
+      "playlist": "On repeat",
+      "playlistId": "repeat",
+      "artistId": "luna",
+      "description": "Nghe mãi, vẫn thấy hay."
+    },
+    {
+      "id": "ngay-xanh",
+      "title": "Một ngày rất xanh",
+      "artist": "Mây",
+      "image": "assets/images/sunset.jpg",
+      "duration": "3:36",
+      "playlist": "Nắng trong lòng",
+      "playlistId": "sunshine",
+      "artistId": "may",
+      "description": "Một ngày mới, một năng lượng."
+    }
+  ],
+  "artists": [
+    {
+      "id": "luna",
+      "name": "Luna",
+      "genre": "Indie pop",
+      "image": "assets/images/artist-luna.jpg",
+      "bio": "Luna mang đến những giai điệu gần gũi, dành cho những khoảnh khắc bạn muốn lắng nghe chính mình."
+    },
+    {
+      "id": "june",
+      "name": "The June",
+      "genre": "Acoustic",
+      "image": "assets/images/artist-june.jpg",
+      "bio": "The June mang đến những giai điệu gần gũi, dành cho những khoảnh khắc bạn muốn lắng nghe chính mình."
+    },
+    {
+      "id": "may",
+      "name": "Mây",
+      "genre": "Chill & soul",
+      "image": "assets/images/artist-may.jpg",
+      "bio": "Mây mang đến những giai điệu gần gũi, dành cho những khoảnh khắc bạn muốn lắng nghe chính mình."
+    },
+    {
+      "id": "minh-an",
+      "name": "Minh An",
+      "genre": "Chill acoustic",
+      "image": "assets/images/ocean.jpg",
+      "bio": "Minh An mang đến những giai điệu gần gũi, dành cho những khoảnh khắc bạn muốn lắng nghe chính mình."
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "linh",
+      "name": "Khánh Linh",
+      "caption": "Một người mê indie",
+      "initials": "KL",
+      "rating": 5,
+      "createdAt": "2026-11-11T18:30:00+07:00",
+      "quote": "Mở Chill một chút sau giờ học, tự nhiên thấy một ngày nhẹ nhàng hơn. Đúng gu mình luôn!"
+    },
+    {
+      "id": "nam",
+      "name": "Hoàng Nam",
+      "caption": "Luôn mang theo tai nghe",
+      "initials": "HN",
+      "rating": 4,
+      "createdAt": "2026-11-14T09:00:00+07:00",
+      "quote": "Thích cách các playlist chia theo cảm xúc. Chỉ cần chọn một mood là có ngay nhạc để khám phá."
+    },
+    {
+      "id": "anh",
+      "name": "Minh Anh",
+      "caption": "Yêu những giai điệu mộc",
+      "initials": "MA",
+      "rating": 5,
+      "createdAt": "2026-11-13T20:00:00+07:00",
+      "quote": "Giao diện gọn gàng trên điện thoại, ảnh bìa xinh và tìm được thêm vài giọng ca rất hay."
+    }
+  ]
+}

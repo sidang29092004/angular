@@ -1,0 +1,56 @@
+<section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+  <div class="newsletter-top">
+    <p class="eyebrow">THE GOOD STUFF / NEWSLETTER</p>
+    <svg class="icon" aria-hidden="true"><use href="#icon-mail" /></svg>
+  </div>
+  <h2 id="newsletter-title">Nhạc hay,<br />gửi bạn.</h2>
+  <p class="newsletter-description">
+    Thêm chút cảm hứng vào hộp thư với playlist mới, giọng ca hay và những câu chuyện âm nhạc.
+  </p>
+  <form #newsletterForm="ngForm" (ngSubmit)="subscribe(newsletterForm)" novalidate>
+    <label for="newsletter-email">Email của bạn</label>
+    <input
+      id="newsletter-email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      placeholder="ban@example.com"
+      [(ngModel)]="email"
+      #emailField="ngModel"
+      required
+      email
+      pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+      maxlength="254"
+      [attr.aria-invalid]="emailField.invalid && emailField.touched ? 'true' : null"
+      [attr.aria-describedby]="
+        emailField.invalid && emailField.touched
+          ? 'newsletter-error newsletter-note'
+          : 'newsletter-note'
+      "
+    />
+    @if (emailField.invalid && emailField.touched) {
+      <p class="form-error" id="newsletter-error" role="alert">
+        {{
+          emailField.errors?.['required']
+            ? 'Bạn hãy nhập email nhé.'
+            : 'Email chưa đúng định dạng. Ví dụ: ban@example.com.'
+        }}
+      </p>
+    }
+    @if (error()) { <p class="form-error" role="alert">{{ error() }}</p> }
+    <button type="submit" [disabled]="pending()">
+      {{ pending() ? 'Đang đăng ký…' : 'Đăng ký nhận tin' }}
+      <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg>
+    </button>
+    <p class="newsletter-note" id="newsletter-note">
+      Email được lưu để đăng ký nhận tin. Hệ thống hiện chưa tự động gửi bản tin.
+    </p>
+  </form>
+  <div class="newsletter-status" role="status" aria-live="polite" aria-atomic="true">
+    @if (registeredEmail()) {
+      <p>
+        Đã đăng ký <strong>{{ registeredEmail() }}</strong> thành công. Cảm ơn bạn!
+      </p>
+    }
+  </div>
+</section>

@@ -1,0 +1,70 @@
+<div class="bottom-dock">
+  @if (featuredTrack(); as featuredTrack) {
+  <aside class="mini-player" id="now-playing" aria-label="Bài hát gợi ý hôm nay">
+    <div class="player-content">
+      <div class="player-cover-wrap">
+        <img
+          [src]="featuredTrack.image"
+          [alt]="'Ảnh bìa ' + featuredTrack.title"
+          width="42"
+          height="42"
+          [class.is-spinning]="isPlaying()"
+        />
+        @if (isPlaying()) {
+          <span class="player-wave-indicator" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+        }
+      </div>
+      <a class="player-song" [routerLink]="['/track', featuredTrack.id]">
+        <strong>{{ featuredTrack.title }}</strong>
+        <span>{{ featuredTrack.artist }} <span class="song-dot">·</span> {{ featuredTrack.playlist }}</span>
+      </a>
+      <button
+        type="button"
+        class="player-control-button"
+        (click)="togglePlay($event)"
+        [attr.aria-label]="isPlaying() ? 'Tạm dừng' : 'Phát nhạc'"
+      >
+        <svg class="icon" aria-hidden="true">
+          <use [attr.href]="isPlaying() ? '#icon-pause' : '#icon-play'" />
+        </svg>
+      </button>
+      <a class="icon-button" [routerLink]="['/track', featuredTrack.id]" aria-label="Xem chi tiết bài hát">
+        <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up" /></svg>
+      </a>
+    </div>
+    <div class="player-progress" aria-hidden="true">
+      <span [class.is-animating]="isPlaying()"></span>
+    </div>
+  </aside>
+  }
+  <nav class="bottom-nav" aria-label="Điều hướng chính">
+    <a
+      class="nav-item"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+    >
+      <svg class="icon" aria-hidden="true"><use href="#icon-home" /></svg>
+      <span>Trang chủ</span>
+      <span class="active-dot"></span>
+    </a>
+    <a class="nav-item" routerLink="/search" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <svg class="icon" aria-hidden="true"><use href="#icon-search" /></svg>
+      <span>Khám phá</span>
+      <span class="active-dot"></span>
+    </a>
+    <a class="nav-item" routerLink="/library" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <svg class="icon" aria-hidden="true"><use href="#icon-library" /></svg>
+      <span>Thư viện</span>
+      <span class="active-dot"></span>
+    </a>
+    <a class="nav-item" routerLink="/artists" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <svg class="icon" aria-hidden="true"><use href="#icon-headphones" /></svg>
+      <span>Nghệ sĩ</span>
+      <span class="active-dot"></span>
+    </a>
+  </nav>
+</div>
