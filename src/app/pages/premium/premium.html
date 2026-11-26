@@ -17,7 +17,7 @@
         <p class="eyebrow">CHỌN NHỊP ĐIỆU CỦA BẠN</p>
         <h2 id="plans-title">Gói nghe phù hợp</h2>
       </div>
-      <span class="price-note">Giá minh họa / tháng</span>
+      <span class="price-note">Giá minh họa · Free 0₫</span>
     </div>
 
     <div class="plans-grid">
@@ -28,7 +28,7 @@
             <h3>{{ plan.name }}</h3>
             <p>{{ plan.description }}</p>
           </div>
-          <p class="plan-price"><strong>{{ plan.price }}</strong><span>/ tháng</span></p>
+          <p class="plan-price"><strong>{{ plan.price }}</strong><span>{{ plan.pricePeriod === 'mãi mãi' ? 'mãi mãi' : '/ tháng' }}</span></p>
           <ul>
             @for (feature of plan.features; track feature) {
               <li><span aria-hidden="true">✓</span>{{ feature }}</li>
@@ -60,7 +60,9 @@
         <span>Gói đã chọn</span>
         <strong>{{ selectedPlan().name }}</strong>
       </div>
-      <strong class="summary-price">{{ selectedPlan().price }}<small>/ tháng</small></strong>
+      <strong class="summary-price">
+        {{ selectedPlan().price }}<small>{{ selectedPlan().pricePeriod === 'mãi mãi' ? 'mãi mãi' : '/ tháng' }}</small>
+      </strong>
     </div>
 
     <form #subscriptionForm="ngForm" (ngSubmit)="submit(subscriptionForm)" novalidate>

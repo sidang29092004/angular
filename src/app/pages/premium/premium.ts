@@ -8,6 +8,7 @@ interface PremiumPlan {
   id: SubscriptionPlanId;
   name: string;
   price: string;
+  pricePeriod: string;
   description: string;
   features: string[];
   badge?: string;
@@ -25,9 +26,18 @@ export class Premium {
 
   readonly plans: PremiumPlan[] = [
     {
+      id: 'free',
+      name: 'Free',
+      price: '0₫',
+      pricePeriod: 'mãi mãi',
+      description: 'Bắt đầu nghe nhạc và khám phá Spotife.',
+      features: ['Khám phá playlist và nghệ sĩ', 'Lưu bài hát yêu thích', 'Nghe nhạc cơ bản trên Spotife'],
+    },
+    {
       id: 'individual',
       name: 'Premium Cá nhân',
       price: '49.000₫',
+      pricePeriod: 'tháng',
       description: 'Một tài khoản, không gian âm nhạc riêng.',
       features: ['Nghe nhạc không quảng cáo', 'Bỏ qua bài hát không giới hạn', 'Chất lượng âm thanh cao'],
       badge: 'Phổ biến nhất',
@@ -36,6 +46,7 @@ export class Premium {
       id: 'student',
       name: 'Premium Sinh viên',
       price: '25.000₫',
+      pricePeriod: 'tháng',
       description: 'Ưu đãi dành cho những ngày học dài.',
       features: ['Đầy đủ quyền lợi Premium', 'Giá ưu đãi mỗi tháng', 'Cần xác minh tình trạng sinh viên'],
     },
@@ -43,6 +54,7 @@ export class Premium {
       id: 'family',
       name: 'Premium Gia đình',
       price: '99.000₫',
+      pricePeriod: 'tháng',
       description: 'Chia sẻ niềm vui nghe nhạc cùng nhà.',
       features: ['Tối đa 6 tài khoản riêng', 'Mỗi người có thư viện riêng', 'Quản lý thành viên trong một gói'],
     },

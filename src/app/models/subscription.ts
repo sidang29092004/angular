@@ -1,4 +1,4 @@
-export type SubscriptionPlanId = 'individual' | 'student' | 'family';
+export type SubscriptionPlanId = 'free' | 'individual' | 'student' | 'family';
 
 export interface SubscriptionRequest {
   email: string;

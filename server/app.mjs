@@ -84,7 +84,7 @@ export function createApp(database) {
   app.post('/api/subscriptions', writeLimit, async (request, response) => {
     const email = typeof request.body?.email === 'string' ? request.body.email.trim().toLowerCase() : '';
     const planId = typeof request.body?.planId === 'string' ? request.body.planId : '';
-    const validPlans = new Set(['individual', 'student', 'family']);
+    const validPlans = new Set(['free', 'individual', 'student', 'family']);
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return response.status(400).json({ message: 'Email chưa đúng định dạng.' });
     }
