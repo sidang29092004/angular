@@ -46,6 +46,11 @@ export const routes: Routes = [
     title: 'Nghệ sĩ — spotife',
   },
   {
+    path: 'premium',
+    loadComponent: () => import('./pages/premium/premium').then((m) => m.Premium),
+    title: 'Gói Premium — spotife',
+  },
+  {
     path: 'feedback',
     loadComponent: () => import('./pages/feedback/feedback').then((m) => m.FeedbackPage),
     title: 'Gửi cảm nhận — spotife',

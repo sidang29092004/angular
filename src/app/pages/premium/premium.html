@@ -1,0 +1,105 @@
+<div class="premium-page">
+  <header class="premium-hero">
+    <p class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle" /></svg> SPOTIFE PREMIUM</p>
+    <h1>Âm nhạc của bạn.<br /><span>Không giới hạn.</span></h1>
+    <p class="hero-description">
+      Chọn một gói phù hợp, thả mình vào playlist yêu thích và tận hưởng từng nhịp điệu.
+    </p>
+    <div class="hero-perks" aria-label="Quyền lợi dự kiến">
+      <span><i aria-hidden="true">✓</i> Không quảng cáo</span>
+      <span><i aria-hidden="true">✓</i> Nghe theo cách của bạn</span>
+    </div>
+  </header>
+
+  <section class="plans-section" aria-labelledby="plans-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">CHỌN NHỊP ĐIỆU CỦA BẠN</p>
+        <h2 id="plans-title">Gói nghe phù hợp</h2>
+      </div>
+      <span class="price-note">Giá minh họa / tháng</span>
+    </div>
+
+    <div class="plans-grid">
+      @for (plan of plans; track plan.id) {
+        <article class="plan-card" [class.is-featured]="plan.badge" [class.is-selected]="selectedPlanId() === plan.id">
+          @if (plan.badge) { <span class="plan-badge">{{ plan.badge }}</span> }
+          <div class="plan-heading">
+            <h3>{{ plan.name }}</h3>
+            <p>{{ plan.description }}</p>
+          </div>
+          <p class="plan-price"><strong>{{ plan.price }}</strong><span>/ tháng</span></p>
+          <ul>
+            @for (feature of plan.features; track feature) {
+              <li><span aria-hidden="true">✓</span>{{ feature }}</li>
+            }
+          </ul>
+          <button
+            class="plan-select"
+            type="button"
+            [class.is-current]="selectedPlanId() === plan.id"
+            [attr.aria-pressed]="selectedPlanId() === plan.id"
+            (click)="choosePlan(plan.id)"
+          >
+            {{ selectedPlanId() === plan.id ? 'Đang chọn gói này' : 'Chọn gói' }}
+          </button>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="request-panel" id="request-form" aria-labelledby="request-title">
+    <div class="request-heading">
+      <p class="eyebrow">BƯỚC CUỐI</p>
+      <h2 id="request-title">Gửi yêu cầu đăng ký</h2>
+      <p>Chọn gói, để lại email để lưu yêu cầu của bạn.</p>
+    </div>
+
+    <div class="selected-plan-summary" aria-live="polite">
+      <div>
+        <span>Gói đã chọn</span>
+        <strong>{{ selectedPlan().name }}</strong>
+      </div>
+      <strong class="summary-price">{{ selectedPlan().price }}<small>/ tháng</small></strong>
+    </div>
+
+    <form #subscriptionForm="ngForm" (ngSubmit)="submit(subscriptionForm)" novalidate>
+      <label for="premium-email">Email của bạn</label>
+      <input
+        id="premium-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="ban@example.com"
+        [(ngModel)]="email"
+        #emailField="ngModel"
+        required
+        email
+        pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+        maxlength="254"
+        [attr.aria-invalid]="emailField.invalid && emailField.touched ? 'true' : null"
+        [attr.aria-describedby]="emailField.invalid && emailField.touched ? 'email-error demo-note' : 'demo-note'"
+      />
+      @if (emailField.invalid && emailField.touched) {
+        <p class="form-error" id="email-error" role="alert">
+          {{ emailField.errors?.['required'] ? 'Bạn hãy nhập email nhé.' : 'Email chưa đúng định dạng.' }}
+        </p>
+      }
+      @if (error()) { <p class="form-error" role="alert">{{ error() }}</p> }
+      <button class="submit-button" type="submit" [disabled]="pending()">
+        {{ pending() ? 'Đang gửi yêu cầu…' : 'Gửi yêu cầu đăng ký' }}
+        <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg>
+      </button>
+      <p class="demo-note" id="demo-note">
+        Bản thử nghiệm: yêu cầu sẽ lưu email và gói bạn chọn. Hiện chưa tích hợp thanh toán hoặc kích hoạt quyền lợi Premium.
+      </p>
+    </form>
+
+    @if (registered(); as confirmation) {
+      <div class="success-message" role="status" aria-live="polite">
+        <span class="success-mark" aria-hidden="true">✓</span>
+        <p><strong>Đã lưu yêu cầu {{ confirmation.planName }}.</strong><br />Email: {{ confirmation.email }}. Bản demo chưa tích hợp thanh toán nên bạn chưa bị thu phí.</p>
+      </div>
+    }
+  </section>
+</div>

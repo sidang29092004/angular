@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs';
 import { initialCatalog } from '../data/music-data';
 import { Catalog, Feedback } from '../models/music';
+import { SubscriptionRequest } from '../models/subscription';
 
 @Injectable({ providedIn: 'root' })
 export class MusicService {
@@ -56,6 +57,10 @@ export class MusicService {
 
   subscribe(email: string) {
     return this.http.post<{ message: string }>('/api/subscribers', { email }).pipe(timeout(15000));
+  }
+
+  registerSubscription(value: SubscriptionRequest) {
+    return this.http.post<{ message: string }>('/api/subscriptions', value).pipe(timeout(15000));
   }
 
   sendFeedback(value: { name: string; rating: number; quote: string }) {

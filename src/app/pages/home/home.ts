@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Hero } from '../../shared/components/hero/hero';
 import { PlaylistSection } from '../../shared/components/playlist-section/playlist-section';
 import { PromoBanner } from '../../shared/components/promo-banner/promo-banner';
@@ -11,6 +12,7 @@ import { Newsletter } from '../../shared/components/newsletter/newsletter';
   selector: 'app-home',
   standalone: true,
   imports: [
+    RouterLink,
     Hero,
     PlaylistSection,
     PromoBanner,

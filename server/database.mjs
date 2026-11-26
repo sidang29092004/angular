@@ -25,6 +25,7 @@ export async function connectDatabase() {
 export async function initializeDatabase(database) {
   const catalog = JSON.parse(await readFile(new URL('../src/app/data/catalog.json', import.meta.url), 'utf8'));
   await database.collection('subscribers').createIndex({ email: 1 }, { unique: true });
+  await database.collection('subscriptions').createIndex({ email: 1, planId: 1 }, { unique: true });
   for (const name of ['playlists', 'tracks', 'artists', 'feedbacks']) {
     const collection = database.collection(name);
     await collection.createIndex({ id: 1 }, { unique: true });

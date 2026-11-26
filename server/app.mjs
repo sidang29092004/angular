@@ -81,6 +81,35 @@ export function createApp(database) {
     response.json({ message: 'Đăng ký nhận tin thành công.' });
   });
 
+  app.post('/api/subscriptions', writeLimit, async (request, response) => {
+    const email = typeof request.body?.email === 'string' ? request.body.email.trim().toLowerCase() : '';
+    const planId = typeof request.body?.planId === 'string' ? request.body.planId : '';
+    const validPlans = new Set(['individual', 'student', 'family']);
+    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      return response.status(400).json({ message: 'Email chưa đúng định dạng.' });
+    }
+    if (!validPlans.has(planId)) {
+      return response.status(400).json({ message: 'Gói nghe không hợp lệ.' });
+    }
+
+    const subscriptions = database.collection('subscriptions');
+    const now = new Date();
+    try {
+      await subscriptions.updateOne(
+        { email, planId },
+        {
+          $set: { updatedAt: now },
+          $setOnInsert: { id: randomUUID(), email, planId, status: 'requested', createdAt: now },
+        },
+        { upsert: true },
+      );
+    } catch (error) {
+      if (error.code !== 11000) throw error;
+      await subscriptions.updateOne({ email, planId }, { $set: { updatedAt: now } });
+    }
+    response.status(201).json({ message: 'Yêu cầu đã được ghi nhận. Bản thử nghiệm chưa tích hợp thanh toán.' });
+  });
+
   app.post('/api/feedbacks', writeLimit, async (request, response) => {
     const name = typeof request.body?.name === 'string' ? request.body.name.trim() : '';
     const quote = typeof request.body?.quote === 'string' ? request.body.quote.trim() : '';
