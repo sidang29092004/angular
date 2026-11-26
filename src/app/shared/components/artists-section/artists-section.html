@@ -1,0 +1,28 @@
+﻿<section id="artists" aria-labelledby="artists-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">FIND YOUR NEXT FAVORITE</p>
+      <h2 id="artists-title">Giọng ca bạn sẽ mê</h2>
+    </div>
+    <a class="section-arrow" routerLink="/artists" aria-label="Xem tất cả nghệ sĩ"
+      ><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up" /></svg
+    ></a>
+  </div>
+  <div class="artist-grid">
+    @for (artist of artists(); track artist.id) {
+      <article class="artist-card">
+        <a [routerLink]="['/artist', artist.id]"
+          ><img
+            [src]="artist.image"
+            [alt]="'Chân dung minh họa nghệ sĩ ' + artist.name"
+            width="320"
+            height="320"
+            loading="lazy"
+          />
+          <h3>{{ artist.name }}</h3>
+          <p>{{ artist.genre }}</p></a
+        >
+      </article>
+    }
+  </div>
+</section>

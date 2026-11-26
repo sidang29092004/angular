@@ -1,59 +1,35 @@
-# ASM
+﻿
+# spotife — Bài test Lab 1, 2, 3
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.6.
+Website âm nhạc Angular, thiết kế cho mobile. Giao diện rộng tối đa 430px và nằm giữa màn hình trên desktop.
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Chạy dự án
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Mở `http://localhost:4200`. Trên PowerShell nếu `npm.ps1` bị chặn, dùng `npm.cmd start`.
+
+## Nội dung theo đề
+
+- Trang chủ giữ các section hiện có: hero, playlist, hai banner, bài hát và nghệ sĩ.
+- **Feedback:** hiển thị tối đa hai nhận xét mới nhất trong nhóm có số sao cao nhất. Hàm `getLatestTopRatedFeedbacks()` lọc theo `rating`, sắp xếp `createdAt` giảm dần rồi lấy hai phần tử.
+- **Newsletter:** form email với kiểm tra bắt buộc, định dạng email, thông báo lỗi và xác nhận tại chỗ.
+- **Data dạng mảng:** `playlists`, `tracks`, `artists`, `feedbacks` trong `src/app/data/music-data.ts`; interface nằm trong `src/app/models/music.ts`.
+- Các component hiển thị danh sách bằng `@for`; footer có liên kết đến feedback và newsletter.
+
+Đây là website minh họa tĩnh, không gọi API hay gửi email. Newsletter chỉ ghi nhận email trong bộ nhớ của component; rời trang hoặc tải lại sẽ xóa thông tin. Trình phát nhạc vẫn là giao diện minh họa.
+
+## Kiểm tra và xuất bài
 
 ```bash
-ng generate --help
+npm test -- --watch=false
+npm run build
+npm run export:lab1
 ```
 
-## Building
+Lệnh cuối xuất bản HTML/CSS vào `dist/lab1-spotife`. Mở `index.html` trong trình duyệt để xem. Bản này không có JavaScript nên nút đăng ký bị vô hiệu hóa; dùng bản Angular để thử kiểm tra email.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Xem [LAB1.md](LAB1.md) để biết cấu trúc component và nguồn tài nguyên.

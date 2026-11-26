@@ -1,0 +1,35 @@
+﻿<section id="top-tracks" aria-labelledby="tracks-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">THE SOUND OF RIGHT NOW</p>
+      <h2 id="tracks-title">Đang được yêu thích</h2>
+    </div>
+    <span class="chart-tag"><span></span> TOP {{ tracks().length.toString().padStart(2, '0') }}</span>
+  </div>
+  <ol class="track-list">
+    @for (track of tracks(); track track.id; let index = $index; let first = $first) {
+      <li class="track" [class.current-track]="first">
+        @if (first) {
+          <span class="equalizer" aria-label="Bài hát nổi bật"><i></i><i></i><i></i><i></i></span>
+        } @else {
+          <span class="track-rank">{{ (index + 1).toString().padStart(2, '0') }}</span>
+        }
+        <img
+          [src]="track.image"
+          [alt]="'Ảnh bìa ' + track.title"
+          width="48"
+          height="48"
+          loading="lazy"
+        />
+        <a class="track-info" [routerLink]="['/track', track.id]"
+          ><h3>{{ track.title }}</h3>
+          <p>{{ track.artist }}</p></a
+        >
+        <span class="track-duration">{{ track.duration }}</span>
+        <a class="track-action" [routerLink]="['/track', track.id]" [attr.aria-label]="'Xem bài ' + track.title"
+          ><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up" /></svg
+        ></a>
+      </li>
+    }
+  </ol>
+</section>

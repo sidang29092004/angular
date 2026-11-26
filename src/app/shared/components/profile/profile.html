@@ -1,0 +1,78 @@
+<a class="back-link" routerLink="/">← Trang chủ</a>
+<p class="eyebrow">KHÔNG GIAN CỦA BẠN</p>
+<div class="profile-header">
+  <div class="profile-avatar" aria-hidden="true">{{ library.name().charAt(0).toUpperCase() }}</div>
+  <div>
+    <h1 class="page-title">{{ library.name() }}</h1>
+    <p class="page-subtitle">Thành viên nghe nhạc tại spotife</p>
+  </div>
+</div>
+
+<section class="profile-card">
+  <h2 class="card-heading">Tùy chọn giao diện</h2>
+  <p class="form-note">Chọn màu sắc phù hợp với tâm trạng và ánh sáng xung quanh.</p>
+  <div class="theme-picker" role="radiogroup" aria-label="Lựa chọn giao diện sáng tối">
+    <button
+      type="button"
+      class="theme-option"
+      [class.active]="themeService.theme() === 'dark'"
+      (click)="themeService.setTheme('dark')"
+      role="radio"
+      [attr.aria-checked]="themeService.theme() === 'dark'"
+    >
+      <span class="theme-preview dark-preview">
+        <svg class="icon"><use href="#icon-moon" /></svg>
+      </span>
+      <span class="theme-label">
+        <strong>Giao diện Tối</strong>
+        <small>Huyền bí & dịu mắt</small>
+      </span>
+      @if (themeService.theme() === 'dark') {
+        <span class="check-badge">✓</span>
+      }
+    </button>
+    <button
+      type="button"
+      class="theme-option"
+      [class.active]="themeService.theme() === 'light'"
+      (click)="themeService.setTheme('light')"
+      role="radio"
+      [attr.aria-checked]="themeService.theme() === 'light'"
+    >
+      <span class="theme-preview light-preview">
+        <svg class="icon"><use href="#icon-sun" /></svg>
+      </span>
+      <span class="theme-label">
+        <strong>Giao diện Sáng</strong>
+        <small>Trẻ trung & tươi tắn</small>
+      </span>
+      @if (themeService.theme() === 'light') {
+        <span class="check-badge">✓</span>
+      }
+    </button>
+  </div>
+</section>
+
+<section class="profile-card">
+  <h2 class="card-heading">Thông tin tài khoản</h2>
+  <p class="form-note">Tên hiển thị được lưu trực tiếp trên trình duyệt của bạn.</p>
+  <form class="page-form" #profileForm="ngForm" (ngSubmit)="save(profileForm)" novalidate>
+    <label for="profile-name">Tên hiển thị</label>
+    <input id="profile-name" name="name" [ngModel]="library.name()" #nameField="ngModel"
+      required pattern=".*\S.*" maxlength="60" autocomplete="nickname"
+      [attr.aria-invalid]="nameField.invalid && nameField.touched"
+      [attr.aria-describedby]="nameField.invalid && nameField.touched ? 'profile-error' : null" />
+    @if (nameField.invalid && nameField.touched) {
+      <p class="form-error" id="profile-error" role="alert">Bạn hãy nhập tên hiển thị.</p>
+    }
+    <button class="primary-button" type="submit">Lưu hồ sơ</button>
+    <p class="form-note" role="status">{{ library.message() }}</p>
+  </form>
+</section>
+
+<div class="related-links">
+  <a routerLink="/library">Bài hát đã lưu <span>{{ library.favorites().length }} ↗</span></a>
+  <a routerLink="/feedback">Gửi cảm nhận về spotife <span>↗</span></a>
+  <a routerLink="/" fragment="newsletter">Đăng ký nhận tin <span>↗</span></a>
+  <a routerLink="/admin">Khu vực quản trị Studio <span>↗</span></a>
+</div>

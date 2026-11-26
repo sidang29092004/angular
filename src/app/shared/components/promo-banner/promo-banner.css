@@ -1,0 +1,117 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.promo-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 200px;
+  padding: 26px 24px;
+  border-radius: 20px;
+  color: #17230c;
+  background: #b8f36b;
+  box-shadow: 0 10px 30px rgba(184, 243, 107, 0.25);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.promo-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(184, 243, 107, 0.35);
+}
+
+.banner-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 80%;
+}
+
+.banner-art {
+  position: absolute;
+  z-index: 1;
+  right: -32px;
+  bottom: -28px;
+  width: 145px;
+  height: 145px;
+  transform: rotate(-25deg);
+  transition: transform 0.5s ease;
+}
+
+.promo-banner:hover .banner-art {
+  transform: rotate(-10deg) scale(1.05);
+}
+
+.banner-record {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 7px solid #1d281c;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle at center, #161d15 0 3px, #35432c 4px 5px);
+  box-shadow: -12px 12px 24px rgba(23, 35, 12, 0.4);
+  animation: spin-slow 16s linear infinite;
+}
+
+.promo-banner:hover .banner-record {
+  animation-duration: 8s;
+}
+
+.banner-record > span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 12px solid #c8f291;
+  border-radius: 50%;
+  color: #c8f291;
+  background: #182111;
+}
+
+.banner-record .icon {
+  width: 17px;
+  height: 17px;
+}
+
+.banner-orbit {
+  position: absolute;
+  inset: -13px;
+  border: 1px solid rgba(35, 51, 21, 0.25);
+  border-radius: 50%;
+}
+
+.banner-sparkle {
+  position: absolute;
+  top: -28px;
+  right: 45px;
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.2;
+  animation: pulse-online 2s ease-in-out infinite;
+}
+
+:host(.purple-banner) .promo-banner {
+  color: #261938;
+  background: #c6b4ee;
+  box-shadow: 0 10px 30px rgba(198, 180, 238, 0.3);
+}
+
+:host(.purple-banner) .promo-banner:hover {
+  box-shadow: 0 16px 40px rgba(198, 180, 238, 0.4);
+}
+
+:host(.purple-banner) .banner-record {
+  border-color: #33253f;
+  background: repeating-radial-gradient(circle at center, #231a2e 0 3px, #483658 4px 5px);
+}
+
+:host(.purple-banner) .banner-record > span {
+  border-color: #e6c3d3;
+  color: #e6c3d3;
+  background: #33253f;
+}
+
+:host(.purple-banner) .banner-art {
+  right: -45px;
+}

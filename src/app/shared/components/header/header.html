@@ -1,0 +1,41 @@
+<header class="header">
+  <div class="header-top">
+    <a class="brand" routerLink="/" fragment="home" aria-label="spotife — Trang chủ">
+      <span class="brand-mark"
+        ><svg class="icon" aria-hidden="true"><use href="#icon-wave" /></svg
+      ></span>
+      <span>spotife<span class="brand-dot">.</span></span>
+    </a>
+    <div class="header-actions">
+      <button
+        type="button"
+        class="theme-toggle"
+        (click)="themeService.toggleTheme()"
+        [attr.aria-label]="themeService.isDark() ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'"
+        [title]="themeService.isDark() ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'"
+      >
+        <span class="theme-icon-wrap" [class.is-sun]="themeService.isDark()">
+          <svg class="icon" aria-hidden="true">
+            <use [attr.href]="themeService.isDark() ? '#icon-sun' : '#icon-moon'" />
+          </svg>
+        </span>
+      </button>
+      <a class="search-link" routerLink="/search" aria-label="Tìm kiếm âm nhạc"
+        ><svg class="icon" aria-hidden="true"><use href="#icon-search" /></svg
+      ></a>
+      <a class="avatar" routerLink="/profile" aria-label="Hồ sơ cá nhân">s</a>
+    </div>
+  </div>
+  <nav class="filter-tabs" aria-label="Khám phá theo nội dung">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+      >Tất cả</a
+    >
+    <a routerLink="/" fragment="for-you">Âm nhạc</a>
+    <a routerLink="/" fragment="artists">Nghệ sĩ</a>
+    <span class="online-status"><span></span> Live sound</span>
+  </nav>
+</header>

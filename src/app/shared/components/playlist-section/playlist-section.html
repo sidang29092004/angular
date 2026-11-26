@@ -1,0 +1,45 @@
+﻿<section id="for-you" aria-labelledby="playlist-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">MADE FOR YOUR EVERY MOOD</p>
+      <h2 id="playlist-title">Dành riêng cho bạn</h2>
+    </div>
+    <a class="section-arrow" href="#top-tracks" aria-label="Khám phá các bài hát nổi bật"
+      ><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up" /></svg
+    ></a>
+  </div>
+  <div class="playlist-grid">
+    @for (playlist of playlists(); track playlist.id) {
+      <article class="playlist-card">
+        <a [routerLink]="['/playlist', playlist.id]" [attr.aria-label]="'Khám phá playlist ' + playlist.title">
+          <div [class]="'cover ' + playlist.coverClass">
+            <img
+              [src]="playlist.image"
+              [alt]="playlist.imageAlt"
+              width="640"
+              height="640"
+              loading="lazy"
+            />
+            <span class="cover-brand">spotife®</span>
+            <span class="cover-title">
+              {{ playlist.coverTitle }}
+              @if (playlist.coverSubtitle) {
+                <br />
+                @if (playlist.largeSubtitle) {
+                  {{ playlist.coverSubtitle }}
+                } @else {
+                  <small>{{ playlist.coverSubtitle }}</small>
+                }
+              }
+            </span>
+            <span class="cover-play" aria-hidden="true"
+              ><svg class="icon"><use href="#icon-play" /></svg
+            ></span>
+          </div>
+          <h3>{{ playlist.title }}</h3>
+          <p>{{ playlist.description }}</p>
+        </a>
+      </article>
+    }
+  </div>
+</section>

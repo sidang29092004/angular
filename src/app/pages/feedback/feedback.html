@@ -1,0 +1,30 @@
+<a class="back-link" routerLink="/" fragment="feedback">← Góc người nghe</a>
+<p class="eyebrow">CHIA SẺ MỘT CHÚT YÊU THƯƠNG</p>
+<h1 class="page-title">Bạn thấy spotife thế nào?</h1>
+<p class="page-description">Góp ý của bạn giúp trải nghiệm âm nhạc ngày càng tốt hơn.</p>
+@if (sent()) {
+  <div class="empty-state" role="status">
+    <h2>Cảm ơn bạn đã chia sẻ!</h2>
+    <p class="page-description">Cảm nhận của bạn đã được lưu.</p>
+    <a class="primary-button" routerLink="/">Về trang chủ</a>
+  </div>
+} @else {
+  <form class="page-form" #feedbackForm="ngForm" (ngSubmit)="submit(feedbackForm)" novalidate>
+    <label for="feedback-name">Tên của bạn</label>
+    <input id="feedback-name" name="name" [ngModel]="library.name()" required pattern=".*\S.*" maxlength="60" autocomplete="name" />
+    <label for="feedback-rating">Đánh giá</label>
+    <select id="feedback-rating" name="rating" [(ngModel)]="rating" required>
+      <option [ngValue]="5">5 sao — Rất thích</option><option [ngValue]="4">4 sao — Thích</option>
+      <option [ngValue]="3">3 sao — Bình thường</option><option [ngValue]="2">2 sao — Cần cải thiện</option>
+      <option [ngValue]="1">1 sao — Chưa hài lòng</option>
+    </select>
+    <label for="feedback-quote">Cảm nhận của bạn</label>
+    <textarea id="feedback-quote" name="quote" [(ngModel)]="quote" required minlength="10" maxlength="1000" rows="5" aria-describedby="feedback-note"></textarea>
+    <p class="form-note" id="feedback-note">Từ 10 đến 1.000 ký tự. Cảm nhận sẽ hiển thị công khai cùng tên bạn nhập.</p>
+    @if (feedbackForm.submitted && (feedbackForm.invalid || quote.trim().length < 10)) {
+      <p class="form-error" role="alert">Bạn hãy nhập tên và cảm nhận từ 10 ký tự.</p>
+    }
+    @if (error()) { <p class="form-error" role="alert">{{ error() }}</p> }
+    <button class="primary-button" type="submit" [disabled]="pending()">{{ pending() ? 'Đang gửi…' : 'Gửi cảm nhận' }}</button>
+  </form>
+}
